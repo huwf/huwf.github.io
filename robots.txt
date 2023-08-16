@@ -1,0 +1,4 @@
+Sitemap: https://huwf.github.io/sitemapindex.xml
+
+User-Agent: *
+Host: huwf.github.io
