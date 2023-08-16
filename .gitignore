@@ -1,0 +1,7 @@
+venv
+.idea
+cache
+.doit.db*
+__pycache__
+output
+.ipynb_checkpoints
