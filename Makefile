@@ -15,9 +15,9 @@ markdown:
 init: venv
 	$(PYBIN)/python -m pip install -r requirements.txt
 
-# Fair assumption I'll want to use anaconda, so let's include that
-venv:
-	$(CONDA) create -n $(VENV) python=$(PYTHON_VERSION) anaconda -y
+venv: clean
+	$(PYTHON) -m venv $(VENV_PATH) && $(PYBIN) -m pip install --upgrade pip
+
 
 jupyter:
 	$(PYBIN)/jupyter notebook
@@ -29,4 +29,13 @@ pull-haskell:
 	docker pull gibiansky/ihaskell:$(HASKELL_TAG)
 
 clean:
-	$(CONDA) env remove --name $(VENV)
+	rm -rf $(VENV_PATH)
+
+build:
+	$(NIKOLA) build
+
+serve:
+	$(NIKOLA) serve --browser
+
+deploy:
+	$(NIKOLA) github_deploy
