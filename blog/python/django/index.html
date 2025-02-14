@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article#
+" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Django | Huw Fryer</title>
+<link href="../../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../../rss.xml">
+<link rel="canonical" href="https://huwf.github.io/blog/python/django/">
+<!--[if lt IE 9]><script src="../../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Huw Fryer">
+<link rel="prev" href="../../2023/08/06/fastapi-proxy_pass/" title="FastAPI proxy_pass" type="text/html">
+<link rel="next" href="../../rust/" title="Rust" type="text/html">
+<meta property="og:site_name" content="Huw Fryer">
+<meta property="og:title" content="Django">
+<meta property="og:url" content="https://huwf.github.io/blog/python/django/">
+<meta property="og:description" content="Django is a convenient python framework, which allows the setup of a REST API and database integration very quickly.
+Taking a bunch of content from the official tutorial. Start with install and a site">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-02-01T20:01:52+02:00">
+<meta property="article:tag" content="python">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Menubar -->
+
+<nav class="navbar navbar-expand-md static-top mb-4
+navbar-dark
+bg-dark
+"><div class="container">
+<!-- This keeps the margins nice -->
+        <a class="navbar-brand" href="../../../">
+
+            <span id="blog-title">Huw Fryer</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="bs-navbar">
+            <ul class="navbar-nav mr-auto">
+<li class="nav-item">
+<a href="../../../" class="nav-link">Home</a>
+                </li>
+<li class="nav-item">
+<a href="../../../blog" class="nav-link">Blog</a>
+
+                
+            </li>
+</ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
+</div>
+<!-- /.navbar-collapse -->
+    </div>
+<!-- /.container -->
+</nav><!-- End of Menubar --><div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Django</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Huw Fryer
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2025-02-01T20:01:52+02:00" itemprop="datePublished" title="2025-02-01 20:01">2025-02-01 20:01</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <p>Django is a convenient python framework, which allows the setup of a REST API and database integration very quickly.
+Taking a bunch of content from the official tutorial. Start with install and a sitename:  </p>
+<div class="code"><pre class="code literal-block"><span class="nv">python</span><span class="w"> </span><span class="o">-</span><span class="nv">m</span><span class="w"> </span><span class="nv">pip</span><span class="w"> </span><span class="nv">install</span><span class="w"> </span><span class="nv">Django</span>
+<span class="nv">django</span><span class="o">-</span><span class="nv">admin</span><span class="w"> </span><span class="nv">startproject</span><span class="w"> </span><span class="nv">sitename</span><span class="w"> </span><span class="k">dirname</span><span class="w"> </span>
+<span class="nv">python</span><span class="w"> </span><span class="nv">models</span>.<span class="nv">py</span><span class="w"> </span><span class="nv">startapp</span><span class="w"> </span><span class="nv">appname</span>
+</pre></div>
+
+<p>Note that the <code>startapp appname</code> does not include the app directly, only adds files for it.
+We also need to add it to <code>INSTALLED_APPS</code> in <code>settings.py</code>. 
+This should use the app config in appname/apps.py, e.g <code>polls.apps.PollsConfig</code>,</p>
+<h3><code>manage.py</code></h3>
+<p>There are a load of commands which can be run using <code>manage.py</code> depending on the argument.
+* <code>̀manage.py runserver</code> starts a development HTTP server on port 8000.
+* <code>manage.py makemigrations appname</code> creates a series of sql migrations to run, and then <code>manage.py migrate</code> actually runs them.</p>
+<h3>Database</h3>
+<p>Needed based on the applicatoins installed in settings.py.
+Run <code>manage.py migrate</code> to install them.
+The default set are not all needed, so we can get rid of some if we need.</p>
+<p>The database tables are defined in <code>models.py</code>. 
+All models inherit from <code>django.models.Model</code>, with a series of Field classes for different types of field.</p>
+<p><code>SELECT</code> database calls are done with <code>ModelName.objects.</code>, where the method can be <code>all()</code> for <code>SELECT *</code> or <code>.filter()</code>.</p>
+<p>Can have <code>.order_by("-field_name")</code>, need to check how to <code>LIMIT</code> that, rather than using slices.</p>
+<p>To access foreign key objects, use <code>ModelName.foreign_set</code>. This uses the same methods <code>.create(**kwargs)</code>, or <code>.filter()</code>.</p>
+<h3>Admin interface</h3>
+<p>There is an admin interface for Django, with options provided by <code>django.contrib.auth</code> which is shipped by default.
+By modifying the <code>appname.admin</code> file, we can add model objects to this interface, to be added/deleted or updated.</p>
+<h3>Define URLs</h3>
+<p>In the app <code>urls.py</code> file, there is a list of URLs mapping to different functions.
+Where a parameter is needed, we have the format <code>"&lt;type:parameter_name&gt;/"</code> where <code>parameter_name</code> is passed to the relevant view function as a kwarg.</p>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../../categories/python/" rel="tag">python</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../../2023/08/06/fastapi-proxy_pass/" rel="prev" title="FastAPI proxy_pass">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../../rust/" rel="next" title="Rust">Next post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2025         <a href="mailto:">Huw Fryer</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>

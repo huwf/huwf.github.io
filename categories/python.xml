@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huw Fryer (Posts about python)</title><link>https://huwf.github.io/</link><description></description><atom:link href="https://huwf.github.io/categories/python.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:"&gt;Huw Fryer&lt;/a&gt; </copyright><lastBuildDate>Fri, 14 Feb 2025 21:57:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Django</title><link>https://huwf.github.io/blog/python/django/</link><dc:creator>Huw Fryer</dc:creator><description>&lt;p&gt;Django is a convenient python framework, which allows the setup of a REST API and database integration very quickly.
+Taking a bunch of content from the official tutorial. Start with install and a sitename:  &lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;m&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;pip&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;install&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;Django&lt;/span&gt;
+&lt;span class="nv"&gt;django&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nv"&gt;admin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;startproject&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;sitename&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;dirname&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;
+&lt;span class="nv"&gt;python&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;models&lt;/span&gt;.&lt;span class="nv"&gt;py&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;startapp&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nv"&gt;appname&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that the &lt;code&gt;startapp appname&lt;/code&gt; does not include the app directly, only adds files for it.
+We also need to add it to &lt;code&gt;INSTALLED_APPS&lt;/code&gt; in &lt;code&gt;settings.py&lt;/code&gt;. 
+This should use the app config in appname/apps.py, e.g &lt;code&gt;polls.apps.PollsConfig&lt;/code&gt;,&lt;/p&gt;
+&lt;h3&gt;&lt;code&gt;manage.py&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;There are a load of commands which can be run using &lt;code&gt;manage.py&lt;/code&gt; depending on the argument.
+* &lt;code&gt;̀manage.py runserver&lt;/code&gt; starts a development HTTP server on port 8000.
+* &lt;code&gt;manage.py makemigrations appname&lt;/code&gt; creates a series of sql migrations to run, and then &lt;code&gt;manage.py migrate&lt;/code&gt; actually runs them.&lt;/p&gt;
+&lt;h3&gt;Database&lt;/h3&gt;
+&lt;p&gt;Needed based on the applicatoins installed in settings.py.
+Run &lt;code&gt;manage.py migrate&lt;/code&gt; to install them.
+The default set are not all needed, so we can get rid of some if we need.&lt;/p&gt;
+&lt;p&gt;The database tables are defined in &lt;code&gt;models.py&lt;/code&gt;. 
+All models inherit from &lt;code&gt;django.models.Model&lt;/code&gt;, with a series of Field classes for different types of field.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;SELECT&lt;/code&gt; database calls are done with &lt;code&gt;ModelName.objects.&lt;/code&gt;, where the method can be &lt;code&gt;all()&lt;/code&gt; for &lt;code&gt;SELECT *&lt;/code&gt; or &lt;code&gt;.filter()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Can have &lt;code&gt;.order_by("-field_name")&lt;/code&gt;, need to check how to &lt;code&gt;LIMIT&lt;/code&gt; that, rather than using slices.&lt;/p&gt;
+&lt;p&gt;To access foreign key objects, use &lt;code&gt;ModelName.foreign_set&lt;/code&gt;. This uses the same methods &lt;code&gt;.create(**kwargs)&lt;/code&gt;, or &lt;code&gt;.filter()&lt;/code&gt;.&lt;/p&gt;
+&lt;h3&gt;Admin interface&lt;/h3&gt;
+&lt;p&gt;There is an admin interface for Django, with options provided by &lt;code&gt;django.contrib.auth&lt;/code&gt; which is shipped by default.
+By modifying the &lt;code&gt;appname.admin&lt;/code&gt; file, we can add model objects to this interface, to be added/deleted or updated.&lt;/p&gt;
+&lt;h3&gt;Define URLs&lt;/h3&gt;
+&lt;p&gt;In the app &lt;code&gt;urls.py&lt;/code&gt; file, there is a list of URLs mapping to different functions.
+Where a parameter is needed, we have the format &lt;code&gt;"&amp;lt;type:parameter_name&amp;gt;/"&lt;/code&gt; where &lt;code&gt;parameter_name&lt;/code&gt; is passed to the relevant view function as a kwarg.&lt;/p&gt;</description><category>python</category><guid>https://huwf.github.io/blog/python/django/</guid><pubDate>Sat, 01 Feb 2025 18:01:52 GMT</pubDate></item></channel></rss>

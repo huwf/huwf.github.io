@@ -1,7 +1,7 @@
 <!--
 .. title:
 .. slug: 
-.. date: 2023-07-15 16:52:51 UTC+02:00
+.. date: 2025-02-09 16:52:51 UTC+01:00
 .. tags: 
 .. category: 
 .. link: 
@@ -9,18 +9,14 @@
 .. type: text
 -->
 
-This is my personal site which I intend to mainly use as a reference for myself, and to record my thoughts behind any
-number of projects I think are cool or things I learn. Most likely, it'll be the same as most other tech blogs on 
-t'internet where I ignore it once I've got a nice workflow to write and publish posts. I'm starting with using 
-[Nikola](https://getnikola.com/) for the static site generation, because it's simple, allows me to write in markdown, 
-and supports Jupyter notebook natively. It's pretty cool.
+This is my personal site. This is mainly going to be notes of things I'm learning, or have learned.
+I was inspired by the blue book https://lyz-code.github.io/blue-book/, which does not use the
+blogging format so much, rather contains a documentation around a variety of subjects but not
+necessarily in any sort of chronological order.
+I think it's safe to assume that anything I've written here is not completed yet - including this page.
 
-If against the odds I do keep going with this site, and I do write stuff, I hope to include stuff I am learning about, 
-interesting problems I think about, or long-running perennially unfinished projects. In particular:
+Occasionally I may include some blog posts too, for specific benchmarking things or gotchas
+I've found.
 
-* Python programming. It is my day job after all, I'm sure I'll end up forgetting useful things that it'll be nice to
-come back here and find them again
-* Chess AI. I'd love to write my own bot
-* Learning about maths I should have done years ago like linear algebra and calculus
-* Learning about Haskell
-* Climate change. I don't want to be interested but you can't really get away from it
+
+

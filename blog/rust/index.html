@@ -3,15 +3,26 @@
 " lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="Huw's blog">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Huw Fryer</title>
-<link href="../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<title>Rust | Huw Fryer</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../rss.xml">
-<link rel="canonical" href="https://huwf.github.io/blog/">
-<!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]-->
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://huwf.github.io/blog/rust/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Huw Fryer">
+<link rel="prev" href="../python/django/" title="Django" type="text/html">
+<meta property="og:site_name" content="Huw Fryer">
+<meta property="og:title" content="Rust">
+<meta property="og:url" content="https://huwf.github.io/blog/rust/">
+<meta property="og:description" content="I'm trying to learn rust. 
+Here are summaries of some of the useful bits I've found.
+Typically, the snippets are taken from The Rust book,
+or modified for my purposes where appropriate
+Ownership and b">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-02-09T20:01:52+02:00">
+<meta property="article:tag" content="rust">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -23,7 +34,7 @@ navbar-dark
 bg-dark
 "><div class="container">
 <!-- This keeps the margins nice -->
-        <a class="navbar-brand" href="../">
+        <a class="navbar-brand" href="../../">
 
             <span id="blog-title">Huw Fryer</span>
         </a>
@@ -34,15 +45,22 @@ bg-dark
         <div class="collapse navbar-collapse" id="bs-navbar">
             <ul class="navbar-nav mr-auto">
 <li class="nav-item">
-<a href="../" class="nav-link">Home</a>
+<a href="../../" class="nav-link">Home</a>
                 </li>
 <li class="nav-item">
-<a href="../blog" class="nav-link">Blog</a>
+<a href="../../blog" class="nav-link">Blog</a>
 
                 
             </li>
 </ul>
-<ul class="navbar-nav navbar-right"></ul>
+<ul class="navbar-nav navbar-right">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Source</a>
+    </li>
+
+
+                
+            </ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -53,23 +71,23 @@ bg-dark
         
         
         
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Rust</a></h1>
 
-    
-
-
-    
-<div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="rust/" class="u-url">Rust</a></h1>
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Huw Fryer
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Huw Fryer
             </span></p>
             <p class="dateline">
-            <a href="rust/" rel="bookmark">
+            <a href="." rel="bookmark">
             <time class="published dt-published" datetime="2025-02-09T20:01:52+02:00" itemprop="datePublished" title="2025-02-09 20:01">2025-02-09 20:01</time></a>
             </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Source</a></p>
+
         </div>
-    </header><div class="e-content entry-content">
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
     <p>I'm trying to learn rust. 
 Here are summaries of some of the useful bits I've found.
 Typically, the snippets are taken from <a href="https://doc.rust-lang.org/book/">The Rust book</a>,
@@ -244,105 +262,14 @@ For example, suppose we have different possible types of messages we can receive
 <code>Option</code> either returns <code>Some</code> if there is a value, or <code>None</code> if there is not.
 This is pretty similar to null values, but it requires that they are explicitly handled by the code.</p>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="python/django/" class="u-url">Django</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Huw Fryer
-            </span></p>
-            <p class="dateline">
-            <a href="python/django/" rel="bookmark">
-            <time class="published dt-published" datetime="2025-02-01T20:01:52+02:00" itemprop="datePublished" title="2025-02-01 20:01">2025-02-01 20:01</time></a>
-            </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <p>Django is a convenient python framework, which allows the setup of a REST API and database integration very quickly.
-Taking a bunch of content from the official tutorial. Start with install and a sitename:  </p>
-<div class="code"><pre class="code literal-block"><span class="nv">python</span><span class="w"> </span><span class="o">-</span><span class="nv">m</span><span class="w"> </span><span class="nv">pip</span><span class="w"> </span><span class="nv">install</span><span class="w"> </span><span class="nv">Django</span>
-<span class="nv">django</span><span class="o">-</span><span class="nv">admin</span><span class="w"> </span><span class="nv">startproject</span><span class="w"> </span><span class="nv">sitename</span><span class="w"> </span><span class="k">dirname</span><span class="w"> </span>
-<span class="nv">python</span><span class="w"> </span><span class="nv">models</span>.<span class="nv">py</span><span class="w"> </span><span class="nv">startapp</span><span class="w"> </span><span class="nv">appname</span>
-</pre></div>
-
-<p>Note that the <code>startapp appname</code> does not include the app directly, only adds files for it.
-We also need to add it to <code>INSTALLED_APPS</code> in <code>settings.py</code>. 
-This should use the app config in appname/apps.py, e.g <code>polls.apps.PollsConfig</code>,</p>
-<h3><code>manage.py</code></h3>
-<p>There are a load of commands which can be run using <code>manage.py</code> depending on the argument.
-* <code>̀manage.py runserver</code> starts a development HTTP server on port 8000.
-* <code>manage.py makemigrations appname</code> creates a series of sql migrations to run, and then <code>manage.py migrate</code> actually runs them.</p>
-<h3>Database</h3>
-<p>Needed based on the applicatoins installed in settings.py.
-Run <code>manage.py migrate</code> to install them.
-The default set are not all needed, so we can get rid of some if we need.</p>
-<p>The database tables are defined in <code>models.py</code>. 
-All models inherit from <code>django.models.Model</code>, with a series of Field classes for different types of field.</p>
-<p><code>SELECT</code> database calls are done with <code>ModelName.objects.</code>, where the method can be <code>all()</code> for <code>SELECT *</code> or <code>.filter()</code>.</p>
-<p>Can have <code>.order_by("-field_name")</code>, need to check how to <code>LIMIT</code> that, rather than using slices.</p>
-<p>To access foreign key objects, use <code>ModelName.foreign_set</code>. This uses the same methods <code>.create(**kwargs)</code>, or <code>.filter()</code>.</p>
-<h3>Admin interface</h3>
-<p>There is an admin interface for Django, with options provided by <code>django.contrib.auth</code> which is shipped by default.
-By modifying the <code>appname.admin</code> file, we can add model objects to this interface, to be added/deleted or updated.</p>
-<h3>Define URLs</h3>
-<p>In the app <code>urls.py</code> file, there is a list of URLs mapping to different functions.
-Where a parameter is needed, we have the format <code>"&lt;type:parameter_name&gt;/"</code> where <code>parameter_name</code> is passed to the relevant view function as a kwarg.</p>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="2023/08/06/fastapi-proxy_pass/" class="u-url">FastAPI proxy_pass</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Huw Fryer
-            </span></p>
-            <p class="dateline">
-            <a href="2023/08/06/fastapi-proxy_pass/" rel="bookmark">
-            <time class="published dt-published" datetime="2023-08-06T16:01:52+02:00" itemprop="datePublished" title="2023-08-06 16:01">2023-08-06 16:01</time></a>
-            </p>
-        </div>
-    </header><div class="e-content entry-content">
-    <p>This took me hours of debugging, when really it was quite obvious. I have a project which contains
-a FastAPI backend and a VueJS front-end, which are served behind an nginx proxy.  The point of 
-this setup is to start using FastAPI, so this was a bit of a gotcha.</p>
-<p>I have the frontend listening on port 8080 or 3000, and the server listening on 5000, but the
-proxy should forward <code>/api</code> to the app served by the FastAPI.  The nginx config I had was like this:</p>
-<div class="code"><pre class="code literal-block"><span class="k">location</span><span class="w"> </span><span class="s">/api</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://api:5000/</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-<p>The way FastAPI handles this is to set a <code>root_api</code> for services behind a proxy, so the app is
-initialised like this:</p>
-<div class="code"><pre class="code literal-block"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">root_path</span><span class="o">=</span><span class="s2">"/api"</span><span class="p">)</span>
-</pre></div>
-
-<p>Going to <code>localhost/api</code> served the <code>/</code> endpoint ok, but going to <code>/api/path</code> didn't, so I was 
-continually getting log messages like this:</p>
-<div class="code"><pre class="code literal-block"><span class="nt">api_1</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="nt">INFO</span><span class="o">:</span><span class="w">     </span><span class="nt">172</span><span class="p">.</span><span class="nc">28</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">3</span><span class="p">:</span><span class="nd">57182</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="s2">"GET / HTTP/1.0"</span><span class="w"> </span><span class="nt">200</span><span class="w"> </span><span class="nt">OK</span>
-<span class="nt">proxy_1</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="nt">172</span><span class="p">.</span><span class="nc">28</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">1</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="cp">[</span><span class="mi">05</span><span class="p">/</span><span class="nx">Aug</span><span class="p">/</span><span class="nx">2023</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">31</span><span class="w"> </span><span class="o">+</span><span class="mi">0000</span><span class="cp">]</span><span class="w"> </span><span class="s2">"GET /api HTTP/1.1"</span><span class="w"> </span><span class="nt">200</span><span class="w"> </span><span class="nt">24</span><span class="w"> </span><span class="s2">"-"</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"</span><span class="w"> </span><span class="s2">"-"</span>
-<span class="nt">api_1</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="nt">INFO</span><span class="o">:</span><span class="w">     </span><span class="nt">172</span><span class="p">.</span><span class="nc">28</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">3</span><span class="p">:</span><span class="nd">36934</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="s2">"GET //decks HTTP/1.0"</span><span class="w"> </span><span class="nt">404</span><span class="w"> </span><span class="nt">Not</span><span class="w"> </span><span class="nt">Found</span>
-<span class="nt">proxy_1</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="nt">172</span><span class="p">.</span><span class="nc">28</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">1</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="cp">[</span><span class="mi">05</span><span class="p">/</span><span class="nx">Aug</span><span class="p">/</span><span class="nx">2023</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">37</span><span class="w"> </span><span class="o">+</span><span class="mi">0000</span><span class="cp">]</span><span class="w"> </span><span class="s2">"GET /api/decks HTTP/1.1"</span><span class="w"> </span><span class="nt">404</span><span class="w"> </span><span class="nt">22</span><span class="w"> </span><span class="s2">"-"</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"</span><span class="w"> </span><span class="s2">"-"</span>
-<span class="nt">api_1</span><span class="w">       </span><span class="o">|</span><span class="w"> </span><span class="nt">INFO</span><span class="o">:</span><span class="w">     </span><span class="nt">172</span><span class="p">.</span><span class="nc">28</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">3</span><span class="p">:</span><span class="nd">53774</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="s2">"GET // HTTP/1.0"</span><span class="w"> </span><span class="nt">404</span><span class="w"> </span><span class="nt">Not</span><span class="w"> </span><span class="nt">Found</span>
-<span class="nt">proxy_1</span><span class="w">     </span><span class="o">|</span><span class="w"> </span><span class="nt">172</span><span class="p">.</span><span class="nc">28</span><span class="p">.</span><span class="nc">0</span><span class="p">.</span><span class="nc">1</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="nt">-</span><span class="w"> </span><span class="cp">[</span><span class="mi">05</span><span class="p">/</span><span class="nx">Aug</span><span class="p">/</span><span class="nx">2023</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mi">14</span><span class="w"> </span><span class="o">+</span><span class="mi">0000</span><span class="cp">]</span><span class="w"> </span><span class="s2">"GET /api/ HTTP/1.1"</span><span class="w"> </span><span class="nt">404</span><span class="w"> </span><span class="nt">22</span><span class="w"> </span><span class="s2">"-"</span><span class="w"> </span><span class="s2">"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"</span><span class="w"> </span><span class="s2">"-"</span>
-</pre></div>
-
-<p>The solution: A trailing slash is needed in both the nginx <code>location</code> as well as the <code>proxy_pass</code>! </p>
-<div class="code"><pre class="code literal-block"><span class="k">location</span><span class="w"> </span><span class="s">/api/</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://api:5000/</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-
-<p>Now that seems to work, and I can start making actual progress on FastAPI...</p>
-    </div>
-    </article>
-</div>
-
-
-
-    
-
-
-
-
-
-        <!--End of body content-->
-
-        <footer id="footer">
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/rust/" rel="tag">rust</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../python/django/" rel="prev" title="Django">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
             Contents © 2025         <a href="mailto:">Huw Fryer</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
             
             
@@ -351,7 +278,7 @@ continually getting log messages like this:</p>
 </div>
 
 
-        <script src="../assets/js/all-nocdn.js"></script><script>
+        <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});

@@ -16,7 +16,7 @@ this setup is to start using FastAPI, so this was a bit of a gotcha.
 I have the frontend listening on port 8080 or 3000, and the server listening on 5000, but the
 proxy should forward `/api` to the app served by the FastAPI.  The nginx config I had was like this:
 
-```nginx configuration
+```nginx
 
 location /api {
     proxy_pass http://api:5000/;
