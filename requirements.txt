@@ -1,1 +1,9 @@
 Nikola[extras]
+<<<<<<< Updated upstream
+=======
+jupyter
+notebook
+pandas
+polars
+pydantic
+>>>>>>> Stashed changes

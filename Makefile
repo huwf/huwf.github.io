@@ -1,14 +1,12 @@
-.PHONY: haskell, pull-haskell, venv
+.PHONY: haskell, pull-haskell, venv, serve
 
 HASKELL_TAG=20230416041647af37a0
-PYTHON_VERSION=3.10
+PYTHON=python3.12
 NB_PORT = 8888
-VENV=nikola
-ANACONDA=$${HOME}/anaconda3
-CONDA=$(ANACONDA)/bin/conda
-PYBIN=$(ANACONDA)/envs/$(VENV)/bin
-PYVENV=${PWD}
-NIKOLA=$(ANACONDA)/envs/$(VENV)/bin/nikola
+VENV_PATH = ./.venv
+VENV_BIN=$(VENV_PATH)/bin
+PYBIN=$(VENV_BIN)/python
+NIKOLA=$(VENV_BIN)/nikola
 
 
 markdown:
