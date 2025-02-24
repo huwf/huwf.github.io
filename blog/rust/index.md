@@ -15,6 +15,23 @@ Here are summaries of some of the useful bits I've found.
 Typically, the snippets are taken from [The Rust book](https://doc.rust-lang.org/book/),
 or modified for my purposes where appropriate
 
+## Interesting language stuff
+
+With Python we can do `range(10)`  to get a generator of 0-9.
+In rust, we can do similar with `..`
+
+Note that we can specify whether to inclue the RHS or not with `..=`
+
+```rust
+    match hour_of_day {
+        // 0-21
+        0..22 => Some(5),
+        // 22-23
+        22..=23 => Some(0),
+        _ => None,
+    }
+```
+
 
 ## Ownership and borrowing
 
@@ -43,7 +60,7 @@ mod tests {
 }
 
 
-````
+```
 
 Answer from GitHub copilot:
 
@@ -223,7 +240,32 @@ This example uses the `Option` enum, which is rust's alternative to null values.
 `Option` either returns `Some` if there is a value, or `None` if there is not.
 This is pretty similar to null values, but it requires that they are explicitly handled by the code.
 
+We can access the value in `Some` by calling `unwrap`.
+It seems like this isn't great practice, but will find out more about this later.
 
 
+## Data structures
+
+There are some standard data structures which are useful to know about.
+
+### Hash maps
+
+Get hash maps from `std::collections::HashMap`. Adding a value:
+
+```rust
+use std::collections:: HashMap;
+
+let mut mappy = HashMap::new();
+mappy.insert(String::from("Hello"), 42)
+```
+
+Alternatively, a useful thing is to only insert if a key isn't present:
+This allows us to interact with the value as well:
+
+```rust
+let x = mappy.entry(String::from("Hello")).or_insert(42);
+// May need to dereference x sometimes
+x += 1;
+```
 
 
