@@ -225,20 +225,32 @@ fn process(message: Message) {
 
 ```
 
-## `if let` and `Option` enum
+## `if/while let` and `Option` enum
 
 There is a similar construct to pattern matching for assigning variable values, `if let` syntax.
 
 ```rust
 let config_max = Some(3u8);
-match config_max {
-    Some(max) => println!("The maximum is configured to {max}"),
-    _ => (),
+if let Some(max) = config_max {
+    println!("Matched {:?}!", max);
+} else{
+    println!("Didn't match config_max");
 }
+
 ```
 This example uses the `Option` enum, which is rust's alternative to null values.
 `Option` either returns `Some` if there is a value, or `None` if there is not.
 This is pretty similar to null values, but it requires that they are explicitly handled by the code.
+
+Similarly, it is also possible to do this in a while loop, e.g for every item in a vector:
+
+```rust
+        while let Some(Some(integer)) = optional_integers.pop() {
+            assert_eq!(integer, cursor);
+            cursor -= 1;
+        }
+
+```
 
 We can access the value in `Some` by calling `unwrap`.
 It seems like this isn't great practice, but will find out more about this later.
@@ -267,5 +279,3 @@ let x = mappy.entry(String::from("Hello")).or_insert(42);
 // May need to dereference x sometimes
 x += 1;
 ```
-
-

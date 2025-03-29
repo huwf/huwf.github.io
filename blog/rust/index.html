@@ -12,6 +12,7 @@
 <link rel="canonical" href="https://huwf.github.io/blog/rust/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Huw Fryer">
 <link rel="prev" href="../python/django/" title="Django" type="text/html">
+<link rel="next" href="../python/celery/" title="Celery" type="text/html">
 <meta property="og:site_name" content="Huw Fryer">
 <meta property="og:title" content="Rust">
 <meta property="og:url" content="https://huwf.github.io/blog/rust/">
@@ -256,18 +257,26 @@ For example, suppose we have different possible types of messages we can receive
 </pre></div>
 
 <h3>
-<code>if let</code> and <code>Option</code> enum</h3>
+<code>if/while let</code> and <code>Option</code> enum</h3>
 <p>There is a similar construct to pattern matching for assigning variable values, <code>if let</code> syntax.</p>
 <div class="code"><pre class="code literal-block"><span class="kd">let</span><span class="w"> </span><span class="n">config_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">3</span><span class="k">u8</span><span class="p">);</span>
-<span class="k">match</span><span class="w"> </span><span class="n">config_max</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nb">Some</span><span class="p">(</span><span class="n">max</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">"The maximum is configured to {max}"</span><span class="p">),</span>
-<span class="w">    </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(),</span>
+<span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">max</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config_max</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Matched {:?}!"</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Didn't match config_max"</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
 <p>This example uses the <code>Option</code> enum, which is rust's alternative to null values.
 <code>Option</code> either returns <code>Some</code> if there is a value, or <code>None</code> if there is not.
 This is pretty similar to null values, but it requires that they are explicitly handled by the code.</p>
+<p>Similarly, it is also possible to do this in a while loop, e.g for every item in a vector:</p>
+<div class="code"><pre class="code literal-block"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="nb">Some</span><span class="p">(</span><span class="n">integer</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optional_integers</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span><span class="w"> </span><span class="n">cursor</span><span class="p">);</span>
+<span class="w">            </span><span class="n">cursor</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+</pre></div>
+
 <p>We can access the value in <code>Some</code> by calling <code>unwrap</code>.
 It seems like this isn't great practice, but will find out more about this later.</p>
 <h3>Data structures</h3>
@@ -293,6 +302,9 @@ This allows us to interact with the value as well:</p>
 <ul class="pager hidden-print">
 <li class="previous">
                 <a href="../python/django/" rel="prev" title="Django">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../python/celery/" rel="next" title="Celery">Next post</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
             Contents © 2025         <a href="mailto:">Huw Fryer</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         

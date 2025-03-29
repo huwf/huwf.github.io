@@ -59,7 +59,29 @@ bg-dark
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="rust/" class="u-url">Rust</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="python/celery/" class="u-url">Celery</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Huw Fryer
+            </span></p>
+            <p class="dateline">
+            <a href="python/celery/" rel="bookmark">
+            <time class="published dt-published" datetime="2025-02-24T20:01:52+02:00" itemprop="datePublished" title="2025-02-24 20:01">2025-02-24 20:01</time></a>
+            </p>
+        </div>
+    </header><div class="e-content entry-content">
+    <p>Celery is a task queue which allows asynchronous execution of tasks.
+In my case, this is particularly useful for freeing up resources in an API for CPU intensive tasks.
+It works with a message broker, such as RabbitMQ, Redis, or SQS, and can handle multiple queues
+across multiple servers.
+It appears like getting started is pretty simple.</p>
+<h3>My setup</h3>
+<p>I will use this with a FastAPI setup. For simplicity, I will use Redis as a message broker, and
+PostgreSQL to store the results.
+Later, it may that Redis could be used as a cache, or to preserve state across different processes.</p>
+<p>Note that it is necessary to add the optional <code>celery[redis]</code> dependency.</p>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="rust/" class="u-url">Rust</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Huw Fryer
@@ -238,18 +260,26 @@ For example, suppose we have different possible types of messages we can receive
 </pre></div>
 
 <h3>
-<code>if let</code> and <code>Option</code> enum</h3>
+<code>if/while let</code> and <code>Option</code> enum</h3>
 <p>There is a similar construct to pattern matching for assigning variable values, <code>if let</code> syntax.</p>
 <div class="code"><pre class="code literal-block"><span class="kd">let</span><span class="w"> </span><span class="n">config_max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">3</span><span class="k">u8</span><span class="p">);</span>
-<span class="k">match</span><span class="w"> </span><span class="n">config_max</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nb">Some</span><span class="p">(</span><span class="n">max</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">println!</span><span class="p">(</span><span class="s">"The maximum is configured to {max}"</span><span class="p">),</span>
-<span class="w">    </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(),</span>
+<span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">max</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">config_max</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Matched {:?}!"</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="p">{</span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">"Didn't match config_max"</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
 <p>This example uses the <code>Option</code> enum, which is rust's alternative to null values.
 <code>Option</code> either returns <code>Some</code> if there is a value, or <code>None</code> if there is not.
 This is pretty similar to null values, but it requires that they are explicitly handled by the code.</p>
+<p>Similarly, it is also possible to do this in a while loop, e.g for every item in a vector:</p>
+<div class="code"><pre class="code literal-block"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="nb">Some</span><span class="p">(</span><span class="n">integer</span><span class="p">))</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">optional_integers</span><span class="p">.</span><span class="n">pop</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">integer</span><span class="p">,</span><span class="w"> </span><span class="n">cursor</span><span class="p">);</span>
+<span class="w">            </span><span class="n">cursor</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+</pre></div>
+
 <p>We can access the value in <code>Some</code> by calling <code>unwrap</code>.
 It seems like this isn't great practice, but will find out more about this later.</p>
 <h3>Data structures</h3>

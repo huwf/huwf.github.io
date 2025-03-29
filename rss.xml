@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huw Fryer</title><link>https://huwf.github.io/</link><description>Huw's blog</description><atom:link href="https://huwf.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:"&gt;Huw Fryer&lt;/a&gt; </copyright><lastBuildDate>Mon, 24 Feb 2025 20:14:20 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rust</title><link>https://huwf.github.io/blog/rust/</link><dc:creator>Huw Fryer</dc:creator><description>&lt;p&gt;I'm trying to learn rust. 
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Huw Fryer</title><link>https://huwf.github.io/</link><description>Huw's blog</description><atom:link href="https://huwf.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2025 &lt;a href="mailto:"&gt;Huw Fryer&lt;/a&gt; </copyright><lastBuildDate>Sat, 29 Mar 2025 21:22:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Celery</title><link>https://huwf.github.io/blog/python/celery/</link><dc:creator>Huw Fryer</dc:creator><description>&lt;p&gt;Celery is a task queue which allows asynchronous execution of tasks.
+In my case, this is particularly useful for freeing up resources in an API for CPU intensive tasks.
+It works with a message broker, such as RabbitMQ, Redis, or SQS, and can handle multiple queues
+across multiple servers.
+It appears like getting started is pretty simple.&lt;/p&gt;
+&lt;h3&gt;My setup&lt;/h3&gt;
+&lt;p&gt;I will use this with a FastAPI setup. For simplicity, I will use Redis as a message broker, and
+PostgreSQL to store the results.
+Later, it may that Redis could be used as a cache, or to preserve state across different processes.&lt;/p&gt;
+&lt;p&gt;Note that it is necessary to add the optional &lt;code&gt;celery[redis]&lt;/code&gt; dependency.&lt;/p&gt;</description><category>python</category><guid>https://huwf.github.io/blog/python/celery/</guid><pubDate>Mon, 24 Feb 2025 18:01:52 GMT</pubDate></item><item><title>Rust</title><link>https://huwf.github.io/blog/rust/</link><dc:creator>Huw Fryer</dc:creator><description>&lt;p&gt;I'm trying to learn rust. 
 Here are summaries of some of the useful bits I've found.
 Typically, the snippets are taken from &lt;a href="https://doc.rust-lang.org/book/"&gt;The Rust book&lt;/a&gt;,
 or modified for my purposes where appropriate&lt;/p&gt;
@@ -166,18 +175,26 @@ For example, suppose we have different possible types of messages we can receive
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;h3&gt;&lt;code&gt;if let&lt;/code&gt; and &lt;code&gt;Option&lt;/code&gt; enum&lt;/h3&gt;
+&lt;h3&gt;&lt;code&gt;if/while let&lt;/code&gt; and &lt;code&gt;Option&lt;/code&gt; enum&lt;/h3&gt;
 &lt;p&gt;There is a similar construct to pattern matching for assigning variable values, &lt;code&gt;if let&lt;/code&gt; syntax.&lt;/p&gt;
 &lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;config_max&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="k"&gt;u8&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-&lt;span class="k"&gt;match&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;config_max&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"The maximum is configured to {max}"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;config_max&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Matched {:?}!"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;max&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="fm"&gt;println!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Didn't match config_max"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This example uses the &lt;code&gt;Option&lt;/code&gt; enum, which is rust's alternative to null values.
 &lt;code&gt;Option&lt;/code&gt; either returns &lt;code&gt;Some&lt;/code&gt; if there is a value, or &lt;code&gt;None&lt;/code&gt; if there is not.
 This is pretty similar to null values, but it requires that they are explicitly handled by the code.&lt;/p&gt;
+&lt;p&gt;Similarly, it is also possible to do this in a while loop, e.g for every item in a vector:&lt;/p&gt;
+&lt;div class="code"&gt;&lt;pre class="code literal-block"&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;integer&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;optional_integers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;pop&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="fm"&gt;assert_eq!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;integer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;-=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
 &lt;p&gt;We can access the value in &lt;code&gt;Some&lt;/code&gt; by calling &lt;code&gt;unwrap&lt;/code&gt;.
 It seems like this isn't great practice, but will find out more about this later.&lt;/p&gt;
 &lt;h3&gt;Data structures&lt;/h3&gt;
