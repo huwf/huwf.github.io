@@ -298,6 +298,46 @@ This allows us to interact with the value as well:</p>
 <span class="c1">// May need to dereference x sometimes</span>
 <span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </pre></div>
+
+<h3>Error handling</h3>
+<p>Rust has a <code>Result</code> enum, which returns either <code>Ok</code> or <code>Err</code> depending on whether the output is an
+error or not. The idea then is that we should be able to <code>match</code> depending on the response.
+Similarly, we can also react differently for different types of errors in the same way.
+If we don't want the program to recover, we can just call <code>panic!</code>.</p>
+<p>We can use <code>Result.unwrap()</code> as a shortcut for a simple match. This either returns the <code>Ok</code> value,
+or calls panic on the error.  <code>Result.expect</code> works the same, except also allows us to set a useful
+error message.</p>
+<p>To propagate, rather than <code>try/catch</code> blocks all the way up, we <code>return Err(e)</code> so the calling function
+can decide what to do with it. This also has a shortcut, i.e <code>?</code> will either open the <code>Ok</code> or return
+the error. This will also be converted to the type of error defined in the signature, which is useful.
+Some error handling function may look like this:</p>
+<div class="code"><pre class="code literal-block"><span class="k">use</span><span class="w"> </span><span class="n">std</span><span class="p">::</span><span class="n">fs</span><span class="p">;</span>
+
+<span class="k">fn</span><span class="w"> </span><span class="nf">read_from_file</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">io</span><span class="p">::</span><span class="n">Error</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Will panic and convert the error to io::Error (if applicable)</span>
+<span class="w">    </span><span class="c1">// Otherewise will return the file file text as a string</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+<span class="w">    </span><span class="n">File</span><span class="p">::</span><span class="n">open</span><span class="p">(</span><span class="s">"filename.txt"</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="n">read_to_string</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">out</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// To match the signature, we return the Ok enum from Result</span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+<span class="w">    </span><span class="c1">// Simplest way to do this is by doing.</span>
+<span class="w">    </span><span class="c1">// fs::read_to_string("filename.txt")</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>We can also use the type system for validation. To take the example of a guessing game, we could
+define a struct as follows:</p>
+<div class="code"><pre class="code literal-block"><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">Guess</span><span class="w"> </span><span class="p">{</span><span class="n">value</span><span class="w"> </span><span class="kt">i32</span><span class="p">,}</span>
+<span class="k">impl</span><span class="w"> </span><span class="n">Guess</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">new</span><span class="p">(</span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="kt">i32</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nc">Guess</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="fm">panic!</span><span class="p">(</span><span class="s">"Cannot have a guess which is less than 0"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">Guess</span><span class="p">{</span><span class="w"> </span><span class="n">Value</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
     </div>
     </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="python/django/" class="u-url">Django</a></h1>
         <div class="metadata">

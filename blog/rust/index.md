@@ -279,3 +279,53 @@ let x = mappy.entry(String::from("Hello")).or_insert(42);
 // May need to dereference x sometimes
 x += 1;
 ```
+
+
+## Error handling
+
+Rust has a `Result` enum, which returns either `Ok` or `Err` depending on whether the output is an
+error or not. The idea then is that we should be able to `match` depending on the response.
+Similarly, we can also react differently for different types of errors in the same way.
+If we don't want the program to recover, we can just call `panic!`.
+
+We can use `Result.unwrap()` as a shortcut for a simple match. This either returns the `Ok` value,
+or calls panic on the error.  `Result.expect` works the same, except also allows us to set a useful
+error message.
+
+To propagate, rather than `try/catch` blocks all the way up, we `return Err(e)` so the calling function
+can decide what to do with it. This also has a shortcut, i.e `?` will either open the `Ok` or return
+the error. This will also be converted to the type of error defined in the signature, which is useful.
+Some error handling function may look like this:
+
+```rust
+use std::fs;
+
+fn read_from_file() -> Result<String, io::Error> {
+    // Will panic and convert the error to io::Error (if applicable)
+    // Otherewise will return the file file text as a string
+    let mut out = String::new();
+    File::open("filename.txt")?.read_to_string(&mut out)?;
+    // To match the signature, we return the Ok enum from Result
+    Ok(out)
+
+    // Simplest way to do this is by doing.
+    // fs::read_to_string("filename.txt")
+}
+```
+
+We can also use the type system for validation. To take the example of a guessing game, we could
+define a struct as follows:
+
+```rust
+pub struct Guess {value i32,}
+impl Guess {
+    pub fn new(value: i32) -> Guess {
+        if value < 0 {
+            panic!("Cannot have a guess which is less than 0");
+        }
+        Guess{ Value }
+    }
+}
+
+```
+
